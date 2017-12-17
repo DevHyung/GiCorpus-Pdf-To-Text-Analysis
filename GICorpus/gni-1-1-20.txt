@@ -1,0 +1,614 @@
+Genomics &  Informatics  Vol.1 (1) 20-24, September 2003 
+
+Global Optimization of Clusters in Gene Expression Data 
+of DNA Microarrays by Deterministic Annealing 
+
+Kwon Moo Lee', Tae Su Chung2 and Ju Han Kim3* 
+
+'Bioinformatics  Project, IT  R&D  Center, Samsung  SDS, 
+Seongnam, Korea 
+'Human  Genome Research  Institute, Seoul  National  University 
+College of Medicine, Seoul11 0-799, Korea 
+3SNUBiomedical  Informatics, Seoul  National  University College 
+of Medicine, Seoul, Korea 
+
+Abstract 
+
+The analysis of DNA microarry data is one of the most 
+important things for functional  genomics  research. 
+The  matrix representation  of microarray data and  its 
+successive  ‘optimal’ 
+incisional  hyperplanes is a 
+useful platform for developing optimization algo바hms 
+to determine the  optimal  partitioning  of pairwise 
+proximity matrix representing  completely connected 
+and  weighted  graph. We  developed  Deterministic 
+Annealing (DA) approach to determine the successive 
+optimal  binary partitioning.  DA  algorithm  demon(cid:173)
+st빠ed good  pe야ormance with the ability to 헤nd the 
+‘globally optimal’  binary partitions.  In  addition, the 
+objects that  have  not  been  clustered  at small  non(cid:173)
+zero temperature, 하e considered to be very sensitive 
+to  even  small  randomness, and  can  be  used  to 
+estimate the reliability of the clustering. 
+
+Keywords: cluster  analysis, DNA  microarray, gene 
+expression, global  optimization, annealing, clustering 
+quality 
+
+Introduction 
+
+The cluster analysis is one of the most prominent methods 
+for analyzing  DNA microarray data.  It explores the  internal 
+
+*Corresponding author: E-mail juhan@snu.ac.kr 
+Tel +82-02-740-8320, Fax +82-02-747-4830 
+Abbreviations:  ALL, acute  Iymphoblastic  leukemia;  AML, acute 
+myel이d leukemia; DA, deterministic anealing; SOM, self-organizing 
+map; MII, matrix Incision Index; SA, simulated anealing. 
+Accepted 22 March 2003 
+
+structure  of  complex  data  by  organizing  them  into 
+meaningful  groups.  Genes  of a similar expression  pattern 
+may  share  similar function, clustering  gene  expression 
+profiles can  be  used for tentative assignment of functional 
+annotation  of the  unknown  genes based on  the functional 
+annotations  of  the  known  genes  (Eisen  et a/. , 1998). 
+Cluster analysis  is also  useful  in  classi깨ing tissues on the 
+basis  of  gene  expression.  Cancerous  and  normal  tissues 
+can  be  distinguished  with  genes  of  subtle  differences  in 
+gene expression (Alon et a/., 1999). Golub et a/. suggested 
+molecular classification  of cancer  using  cluster analysis, 
+which  categorizes  leukemia  into  acute  myeloid  leukemia 
+(AM니 and  acute  Iymphoblastic  leukemia  (AL니 without 
+prior knowledge  about their gene  expression  patterns 
+(Golub et a/., 1999).  They also  developed  leukemia class 
+predictor by  supervised  leaming  method  based  on  gene 
+expression data. Since there is the correlation between the 
+motif  existence  in  promoter  region  and  gene  expression 
+profile, it has been  shown  that co-regulated  genes can  be 
+identified by cluster analysis (Tavazoie and  Churφ ， 1998; 
+Tavazoie et a/.,  1999). H이mes and Bruno considered gene 
+expression  data  and  promoter sequences  simultaneously 
+to find ∞-reg비ated genes by cluster analysis (H이mes and 
+Bruno, 2000). 
+
+The  matrix  representation  of  microarray data  and  its 
+successive  ‘optimal’  incisional  hyperplanes  by  Kim  et a/. 
+(Kim  et a/. , 2001)  constitutes  a useful  platform  for 
+developing optimization algorithm to determine the optimal 
+partitioning  of  pairwise  proximity  matrix  representing 
+completely connected and weighted graph.  In this method, 
+the  clustering  and  the  clustering  analysis  is  formulated  as 
+an optimi경.tion problem whose global optimum is found by 
+various  global  optimizers.  Previously, MITree  algorithm 
+(Kim et a/., 2001) and evolution strategy (Lee et a/., 2001) 
+are  applied  to  this  cluster  analysis.  Both  of  them 
+demonstrated good pe얘ormances with the ability to find the 
+‘globally optimal’  successive binary partitions.  MITree-K is 
+a K-partitioning  e었ension of the  same  geometric principle 
+(Kim et a/., 2002). 
+
+In  this  paper, we  applied a heuristic global  optimization 
+method, Deterministic  Annealing  (DA), to  the  same 
+clustering  method.  In  DA  approach, the  cost  function  is 
+locally  minimized  subject to  a constraint  on  a given 
+randomness  (Shannon  entropy) ,  controlled  by 
+‘ temperature’ 
+that  is  gradually  lowered.  As  the 
+temperature goes slowly down to zero, we obtain the best 
+binary  partitioning  by  the  analogy  of  statistical  physics  in 
+
+Global Optimization of Clusters in Gene Expression Data by Deterministic Annealing  21 
+
+annealing  process.  Even  though  global  optimization 
+approach  produces  the  high  quality  clustering  results, in 
+general, it requires much computational COSt.  But, since the 
+speed  of  DA  algorithm  depends  on  that  of  the  local 
+optimizer, if we employ high pe야Ormance local optimization 
+technique, the  computation  cost  can  be  substantially 
+reduced.  It was also demonstrated that error-prone objects 
+can  be  identified  by  monitoring  the  annealing  process, 
+which  can  be  applied  to  increase  the  quality of  c/ustering 
+analysis. 
+
+Results and Discussion 
+Fisher's  iris data 
+The  Fisher' s iris  data  set  has  been  widely  used  for 
+evaluating  the  performance  of  cluster algorithms  (Fisher, 
+1936).  The  iris  data  set  consists  of  four  measurements 
+(petaVsepallength and petal/sepal width) of 50 1(;심 Setosa, 
+50  Iris  Versicolor, and  50  Iris  Virginica.  In  this  test, the 
+sìmila끼ty measures between the iris flowers are the square 
+values  of  the  pearson' s correlation  coefficient.  And, 
+temperature cooling  parameter a is  equal  to 0.95.  As seen 
+in  Fig.  1, the  first  binary  partitioning  separated  all  Setosa 
+from  the  entire  data  set  without  any  error.  The  next 
+partitioning of 50  Versicolor s and  50  Virginica’ s gave  rise 
+to  six  errors.  Three  Versicolor s (objects  9, 12, 4이 were 
+clustered to  ψrgJη'Íca and three  Virginica’  S  (0미ects 66, 77, 
+81)  to  Versicolor.  The  overall  accuracy  of  clustering  was 
+96% (144/15이. The repeated  results of our algorithm were 
+thesame. 
+
+The  Fig.  2 shows how X;  s are reduced to 0 or 1 as the 
+temperature decreases to zero.  We see that X9, Xlι χ40，  and 
+X59  are  reduced  to  0 or  1 slowly  relative  to  other  Xi’ s and 
+
+these  variables  correspond  to  the  objects  misclassified  as 
+above.  Because  the  misclassified  objects  might  be  near 
+the  cluster  boundaries, they  are  very  susceptible  to 
+randomness.  Hence, even  at  small  temperature, they  are 
+not bounded and  easily agitated from  0 or 1. This concept 
+is very helpful to find significant clusters which are robust to 
+any  possible  errors  or  randomness.  In  addition, we  can 
+reduce  computation  time  substantially  using  this  concept. 
+Because the slowly relaxing variables may not contribute t。
+clustering  qual때 and require great time-consumption to be 
+relaxed to 0 or 1 as  Fig.  2, we can terminate the algorithm 
+before  all  the  variables  are  reduced  to  0 or  1.  In  fact, we 
+can use the f이lowing stopping criteria 
+1) terminate  the  algorithm  if  pre-assigned  number of 
+iteration is  reached.  And the  point whose value  remains 
+the region {O < X < l} is regarded as an outlier, or 
+
+2) terminate the algorithm if all X,'  s are in the neighborhood 
+{O  :s:  X  < ê}  of  0 or  neighborhood {l  - E  < X  :s:  1} of  1, 
+where  E  is a small  positive  pa떠meter (e.g.  ê  = 0.1) when 
+pre-assigned number of iteration is reached 
+
+Golub’'s leukemia data 
+We also tested our algorithm using Golub’  s leukemia data 
+set from  38  human  acute  leukemia cells, which  was  used 
+for training class predictor of acute myeloid leukemia (AM니 
+and  acute  Iymphoblastic  leukemia  (AL니 (G이ub et al., 
+1999). The ALL group consists of T-cell ALL’ s (T-AL니 and 
+B-cell  ALL’ s  (B-AL니. In  the  experiment, RNA  extracted 
+from  each  leukemia sample was  hybridized to high density 
+microarrays containing 6,817 human genes. After scanning 
+the  microarrays  and  image  processing, the  expression 
+levels of each gene for each  leukemia cell were quantified. 
+It  has  been  shown  that  leukemia  class  prediction  was 
+
+lris Setosa  : 101-150 
+lris Vesicolor  ."  51-100 
+lris Vìrginica  : 1-50 
+
+0.7 
+
+0.6 
+
+0.5 
+
+( 
+
+딪 0.4 
+'" 
+h' 
+강 0.3 
+
+0.2 
+
+0.1 
+
+、
+‘、
+
+J 
+
+I 
+
+X9 
+
+/1 
+
+/ 
+
+l 
+
+/ 
+
+/ 
+
+/ 
+/ 
+
+/ 
+
+/ 
+
+~ 
+
+--" 
+
+.~_/  -、
+
+50: 0 
+Setosa 
+
+47: 3 
+Vesicolor 
+
+47:3 
+Vìrginica 
+
+1()4 
+
+10.3 
+
+Temperature (1) 
+
+Fig. 1. Clustering  result of Fisher' s iris flowers by DA approach. 
+The  lists  of  numbers  in  the  terminal  leaves  are  those  of 
+misclassified objects. 
+
+Fig. 2. Behaviors of some Xi’ s susceptible to randomness (.μ is the 
+mean of all ι s and 11  is standard deviation) 
+
+22  Genomics & Informatics Vol.  1(1) 20-24, September 2003 
+
+AML: 28-38 
+T-ALL  : 2, 3, 6, 9-11 , 14, 23 
+B-ALL : 1, 4, 5, 7, 8, 12, 13 
+
+15-22, 24-27 
+
+12: 1 
+AML 
+
+17:0 
+B-ALL 
+
+17 
+
+9: 1 
+T-ALL 
+
+Fig.  3.  Clustering  result  of  Golub’  s leukemia  data  by  DA 
+approach. The lists of numbers in the terminalleaves are those of 
+misclassified objects. 
+
+feasible  by  this  gene  expression  monitoring  without 
+additional  biological  knowledge.  Golub  et al.  selected  50 
+genes  highly correlated  with  ALL-AML  class  distinction. 
+The Fig. 3 demonstrates the results of our cluster algorithm 
+applied  to  leukemia  data  using  the  50 genes.  The  first 
+binary partitioning distinguished ALL from AML with 1 error, 
+and  the  second  distinction  of  ALL  between  T ALL  and  B(cid:173)
+ALL  gave  rise  to  1 error.  Two  B-ALL  samples  were  mis(cid:173)
+classified  into  AML  and  T-ALL, respectively.  The  overall 
+accuracy of the  result  was  94.7%  (36/38).  The  repeated 
+results of our algorithm were the same. 
+
+Discussion 
+Due  to  the  recent  development  of  high-throughput 
+experimental  techniques  in  functional  genomics, we  are 
+facing  the  floOO  of  large-scale  gene expression  data.  The 
+needs of analysis of such biological  data shed light on  the 
+importance of cluster analysis, basic methodology to reveal 
+internal  structure  of  complex data.  Because  cluster 
+analysis  is the first  phase of mining  useful  information, the 
+reliability  of cluste끼ng results  is  responsible  for the  quality 
+of information  e었racted in  the following  stages.  The  direct 
+maximization  of the fig.  아 merit (clustering  index)  which  is 
+main difference with conventional cluster algorithms can be 
+good  strategy  to  increase  clustering  quality.  We  have 
+shown  that deterministic annealing  was  e유ectively applied 
+to find globally optimal clusters.  Previously, we applied two 
+different approaches  MITree  algorithm  and  evolution 
+strategy to this problem and have the same results (Kim et 
+al., 2001;  Lee et a/., 2001). We also find  possibility that we 
+can  identi미 the  clustered  objects  that  are  susceptible  to 
+errors or randomness  and  irrelevant to  increase clustering 
+quality.  This concept  has good  possibility to  be  applied  to 
+
+find  relevant  and  robust  clusters  and  reduce  computation 
+time  substantially.- In  addition, our  approach  does  not 
+needs  any  prior assumption  about  data structure  and 
+considers gloOOI  perspective of data in  clustering.  We  can 
+also  apply  this  algorithm  with  different clustering  indices 
+and similarity measures, which  is not possible in algorithm 
+dependent  methods  such  as  K-means  and  SOM.  Even 
+though  the  computational  cost  is  quite  high  in  this 
+preliminary study with iris and leukemia data sets, we have 
+shown  that  our approach  is  promising  for the  further 
+investigation with a variety 아 data sets, similarity measures 
+and local optimization algorithms. 
+
+Methods 
+Data represen없Ition 
+A set of DNA microarray experiments data can  be viewed 
+as a completely connected and weighted graph of genes or 
+arrays (i.e. , cell lines) with similarity measures. The vertices 
+of the graph correspond to the objects to be clustered  and 
+the edges represent the similarity between the objects. The 
+similarity  measures  can  be  stored  in  pairwise  proximity 
+matrix.  This  representation  makes  the  algorithm 
+independent  of similarity  measures, while  the  other 
+algorithms like  K-Means and SOM  (Self-Organizing  Maps) 
+mingle with the given similarity measure. 
+
+Clustering as an optimization problem 
+The  cluster analysis  proposed  in  this  paper  is  done  by 
+successive  binary  pa야itioning ，  which  produces  top-down 
+hierarchical tree.  Binary partitioning dec이nposes the graph 
+into two  parts with  optimized fig.  아 merit (clustering  index) 
+called  MII  (Matrix  Incision  Index)  suggested  by  Kim  et a/. 
+(Kim  et al., 2001).  The  MII  includes  homogeneity  and 
+separ없ion of  binary  partition.  Homogeneity  ind때tes that 
+each  object within  the  same  cluster should  have  high 
+similarity.  On  the  other  hand, separation  means  that  the 
+。이ects between clusters should have low similarity. These 
+requirements are incorporated into MII as follows: 
+
+MII== !J_찌(n+m)+c밴깐센 
+
+(1 ) 
+
+Q 
+
+where m and n are the numbers 아 objects in groups 1 and 
+2, respectively, a  is  the  average  link strength  between 
+groups  1 and  2, b and  c are  within-group  average  link 
+strength  of  group  1 and  2, respectively.  The  numerator of 
+MII  corresponds  to  homogeneity, the  denominator to 
+separation.  Since  homogeneity/ separation  should  be  as 
+high/low  as  possible  in  binary  paπitioning ，  we  should 
+maximize  the  MII.  The  index  is  defined  directly  from  the 
+similarity  matrix without  prior  information  regarding  the 
+structure of data set.  After defining the MII  , we should find 
+
+Global Optimization of Clusters in Gene Expression Data by Deterministic Annealing  23 
+
+how to  get to  its  global  maximum.  Because  there  is  no 
+general  and  rigorous  mathematical  method  for the  global 
+optimization  problem, a feasible  way  is  to  use  heuristic 
+methods to adopt randomness to escape local optima, one 
+of which  is deterministic annealing  used  in  this  paper.  The 
+advantage of global optimization of clustering is to increase 
+clustering  quality  because  the  clustering  index  is  directly 
+optimized differing from other algorithms such  as K-means 
+and  SOM.  In  addition ,  we  do  not  have  any  prior 
+assumption  about  data  structure.  One  possible 
+disadvantage  is  that  this  global  optimization  algorithm 
+might  be  relatively  slower than  other  local  optimization 
+algorithms 
+
+Deterministic  annealing  to  find  globally 
+optimized clusters 
+We  describe  a  heuristic  algorithm  creating  a  hierarchical 
+tree  from  complex  data  by  iterative  optimal  binary 
+partitioning, based  on  DA.  The best binary  pa야itioning can 
+be  found  by  the  global  maximization  of  MII  introduced  in 
+the  previous  section  as  a  clustering  index  (Eq.  1). 
+Motivated  by the  annealing  process  of  heating  and  slowly 
+cooling  materials  to  obtain  the  most  stable  structure, 
+Kirkpatirck et al.  have proposed this stochastic optimization 
+method  called  Simulated  Annealing  (SA)  in  an  attempt to 
+find global optimum (Kirkpatrick et al., 1983). Using SA, the 
+optimal  solution  is  randomly  searched  over the  cost 
+function  landscape  with  higher probability  for  low  cost 
+function.  As  the  temperature, the  parameter  representing 
+randomness in searching decreases gradually, the solution 
+is converged to global minimum. 
+
+SA  was  applied  to  cluster  analysis  of  temporal  gene 
+expression  profiles  and  finding  the  optimal  number of 
+clusters  (Lukashin  et al. , 2001).  A deterministic version  of 
+SA  called  Deterministic  Annealing  requires  much  less 
+computational  cost because  stochastic simulation  in  SA  is 
+replaced  by  the  corresponding  expectation  values.  The 
+randomness  is  incorporated  into  cost  function  to  be 
+minimized, and  the  function  is  locally  minimized  in  the 
+course  of lowering temperature.  Rose et al.  applied  DA t。
+the  central  clustering  analysis  which  requires  clustering 
+centroids  as  K-means  algorithm  (Rose et al. , 1990;  Rose, 
+1998) and it was used in analyzing tumor and normal colon 
+cancer tissues  probed  by  이 igonucleotide arrays  (Alon  et 
+al. , 1999). 
+
+To  specify  data  pa 야ition ，  we  assign  0  or  1 to  each 
+object.  Although  it  is  essentially  a discrete  (combinatorial) 
+optimization  to  find  the  best  partitioning, the  problem  is 
+transformed  into  a  continuous  version, if  the  clustering 
+assignments denoted by χ are in the range [0, 1]. Here, Xi’ s 
+denote  the  average  01  the  many  discrete  states  in 
+stochastic simulation of the annealing pro∞ss. Using these 
+
+average  clustering  assignments, we  can  represent  MII  as 
+follows 
+
+Mll=lnoL? + nILr )/N 
+
+LZL 
+
+where 
+
+μvLl까ij (1 -xJ(l-x) 
+
+Zl<j (1  Xl )(1- Xj ) 
+
+Lav _  Li」pXlXj
+ZI9XIXl 
+
+I 
+
+L~v，= Lt까ij{xi(l-xj간센드샌 
+
+ZJXj(1  Xj)+Xj(1-Xi)} 
+
+&t 
+
+no  = L (1 -xJ 
+n1 =Lxi 
+
+(2) 
+
+(3) 
+
+(4) 
+
+(5) 
+
+(6) 
+
+(7) 
+
+Here, Lij  is  similarity  between  object  i  and j , and  N  is  the 
+number of objects to be partitioned. 
+
+Instead of optimizing MII alone, we define free energy, F 
+which  includes  randomness  of  clustering  as  follows, and 
+carry out local optimization at given temperature, T. 
+
+F  = -MII-TS 
+
+where 
+
+s = -2: {Xi log Xí  + (l-xi )log(l-xi )} 
+
+(8) 
+
+(9) 
+
+Here, S is the  Shannon  entropy which  measures the  level 
+of  randomness, and  T controls  randomness  of  clustering 
+assignment  during  the  annealing.  We  carry  out  local 
+optimization  at each  stage  of temperature cooling  process 
+base on the optimization result from  previous temperature. 
+As  the  temperature  goes slowly down, we  obtain  the  best 
+binary  partitioning  by  the  analogy  of  statistical  physics  in 
+annealing  process.  This  DA  approach  was  successfully 
+applied  to Traveling  Salesman  Problem  (TSP)  by  Hopfield 
+and Tank in a similar manner (Hopfield and Tank, 1985). 
+
+We  can  re-interpret  this  problem  from  the  viewpoint  of 
+constraint optimization.  Here, we  should  minimized  the 
+object function, -MII  subject to  the  constraint, S=O, which 
+requires  every  Xi  should  be  0  or  1.  To  deal  with  such  a 
+constraint  optimization  problem, we  define  Lagrangian 
+function  which  is  the  same  as  free  energy, Eq.  8  with 
+undetermined  Lagrangian  multiplier, T.  We  can  find 
+
+24  Genomic5 &  Informatic5 Vol.  1 (1) 20-24, 8eptember 2003 
+
+extrema  of  constraint  object function  and  Lagrangian 
+multiplier, T by the condition, <J F/<JXi  = <J F/<JT = O.  If minimal 
+point of -MII is located at the corner of hypercube defined by 
+{Xi  I 0 < Xi  < 1}, the  critical  temperature  is  positive.  On  the 
+other  hand, the  minimum  point  located  at the  middle  of 
+hypercube  results  in  negative  critical  temperature, differing 
+from  what we see  in  statistical  physics.  The  annealing can 
+be seen to find such critical points of Lagrangian function as 
+it scans given range of T. 
+
+To  find  globally  optimized  binary  partitioning , we 
+
+Cluster  analysis  and  display  of  genome-wide  expression 
+pattems. Proc. Natl. Acad. Sci.  USA 95, 14863-14868. 
+
+Fisher, R.A.  (1936).  The  use  of  multiple  measurements  in 
+
+taxonomic pro비ems，  Annals of Eugenics 7, Part 11, 179-188. 
+
+Golub, T.R., 810nim, D.K., Tamayo, P., Huard, C., Caasenbeek, 
+M., Mesirov, J.P., Coller, H., Loh, M.L.  , Downing, J.R. , 
+Caligiuri , M.A. , Bloomfield, C.D. , Lander, E.S.  (1999). 
+Molecular classification  of cancer:  class  discovery and  class 
+prediction  by  gene  expression  monitoring.  8cience  286, 531-
+537. 
+
+implemented the DA approach as follows. 
+(1) Initialize:  random  initialization  of μ temperature 
+
+initialization (T (cid:157) 
+
+To), S하 cooling coefficient (0< a <1) 
+
+(2) Local optimization of F at given T 
+(3)  If all X,'  s are 0 or 1 
+
+- Termination 
+
+else 
+
+- Temperature decreases as T (cid:157) 
+
+To, Go to (2) 
+
+In  this  paper, we  used  the  standard  multidimensional 
+
+local  optimization  technique  which  incorporates  one(cid:173)
+dimensionalline search method (Bazaraa et al., 1993). The 
+improving feasible direction of the line search is determines 
+by  calculating  gradient of  cost function  in  the  feasible 
+region  {Xi  I 0 <  Xi  <  1}.  At  the  boundary  of  the  feasible 
+region, the generation of the  improving feasible direction is 
+done by solving a sub-problem of linear programming. 
+
+Acknowledgments 
+
+This  study  was  supported  by  a grant of the  Korea  Health 
+21  R&D  Project, Ministry of  Health  and  Welfare, Republic 
+of Korea (01-PJ1 O-PG6-01 GM01-0004). 
+
+References 
+
+Alon, U., Barkai, N., Notterman, D.A.,  Gish, K., Ybarra, 8., Mack, 
+D., and Levine, A.J.  (1999). Broad pattems of gene expression 
+revealed  by  clustering  analysis  of  tumor  and  normal  colon 
+tissues probed by 이igonucleotide arrays.  Proc.  Natl.  Acad. 8ci. 
+U8A 96, 6745-6750 
+
+Bazaraa, M.8., 8herali, H.D.,  and  8hetty, C.M.  (1993).  Nonlinear 
+
+Prog떠ming Theory and 때gorithms，  2nd eds., 때|메. 
+
+Eisen, M.B., 8pellman, P.T.,  Brown, P.O., Botstein, D.  (1998). 
+
+Holmes, 1.  and  Bruno, W.J.  (2000).  Finding  regulatory  elements 
+using  joint  likelihoods for  sequence  and  expression  profile 
+data. Intelligent Systems for M이ecular Biology, 202-210. 
+
+Hopfield, J.J.  and  Tank, D.w.  (1985).  Neural  computation  of 
+
+decision in optimization problems. Bi이. Cybern. 52, 141-152. 
+
+Kim , J.H. , Ohno-Machado, L.,  and  Kohane , 1.8.  (2001). 
+Unsupervised learning from  ∞mplex data: The Matrix incision 
+tree algorithm. Pacific Symposium on Biocomputing, 30-41 
+
+Kim , J.H. , Ohno-Machado, L.,  and  Kohane ,  1.8.  (2002) 
+Visualization  and  evaluation  of clustering  structures  for  gene 
+expression data analysis. J Biomed Inform 35, 25-36. 
+
+Kirkpatrick, S., Gelatt, C., and Vecchi, M.  (1983). Optimization by 
+
+simulated annealing. Science 220, 671-680. 
+
+Lee, K., Kim, J.H., Chung, T.S., Moon, B.8., Lee, H., and Kohane, 
+I.S.  (2001).  Evolution strategy applied to global optimization  of 
+clusters  in  gene  expression  data  of  DNA  microarrays.  Proc. 
+IEEE Cong. on Evol. Comp. 845-850 
+
+Lukashin, A.V.  and  Fuchs, R.  (2001).  Analysis  of temporal  gene 
+expression  profiles:  clustering  by  simulated  annealing  and 
+determining the optimal number of clusters.  Bioinformatics  17, 
+405-414. 
+
+Rose, K.,  Gurewitz, E.,  and Fox, G.  (199이. Statistical mechanics 
+and  phase  transition  in  clustering.  Phys.  Rev.  Lett.  65, 945-
+948. 
+
+Rose , K.  (1998).  Deterministic  annealing  for  clustering , 
+compression ,  classification ,  regression ,  and  related 
+optimization problems. Proc.IEEE 86, 2210-2239. 
+
+Tavazoie ,  8.  and  Church,  G.M.  (1998).  Quantitative 
+wholegenome  analysis of  DNA-protein  interactions  by  in  vivo 
+methylase protection in E.  coli. Nature Biotechnol.  16, 566-71. 
+Tavazoie, S., Hughes, J.D., Campbell, M.J., Cho, R.J. , and 
+Church, G.M.  (1999).  8ystematic  determination  of  genetic 
+network architecture. Nature Genetics 22, 281-285. 
+
+
